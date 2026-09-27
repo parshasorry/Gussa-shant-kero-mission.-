@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ek Chhoti Si Baat 🥺</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+  font-family:system-ui,-apple-system,Segoe UI,sans-serif;
+  background:linear-gradient(135deg,#ffe5ec,#f7e8ff,#e5f0ff);
+  overflow:hidden; color:#3b2b35;
+}
+.card{
+  width:min(92%,390px); min-height:470px; padding:32px 24px;
+  background:rgba(255,255,255,.78); backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.9); border-radius:28px;
+  box-shadow:0 18px 60px rgba(100,60,100,.16);
+  text-align:center; display:flex; flex-direction:column; justify-content:center;
+  position:relative;
+}
+.emoji{font-size:65px; margin-bottom:18px; animation:float 2s ease-in-out infinite}
+h1{font-size:27px;margin:0 0 12px}
+p{font-size:17px;line-height:1.55;margin:8px 0 24px}
+button{
+  border:0; border-radius:999px; padding:13px 24px; margin:7px;
+  font-size:16px; font-weight:700; cursor:pointer;
+  transition:.25s; box-shadow:0 6px 18px rgba(0,0,0,.1);
+}
+.primary{background:#ff6f91;color:white}
+.secondary{background:#fff;color:#ff5f83;border:1px solid #ffc0cf}
+button:hover{transform:translateY(-2px) scale(1.03)}
+.hidden{display:none!important}
+.hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.heart{position:absolute;font-size:22px;animation:rise 5s linear forwards;opacity:.75}
+@keyframes rise{from{transform:translateY(30px) rotate(0);opacity:0}15%{opacity:.8}to{transform:translateY(-560px) rotate(25deg);opacity:0}}
+@keyframes float{50%{transform:translateY(-7px)}}
+.small{font-size:13px;color:#8c7480;margin-top:14px}
+#yesBtn{background:#ff8fab;color:#fff}
+#noBtn{background:#fff;color:#ff5f83}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="hearts" id="hearts"></div>
+
+  <section id="s1">
+    <div class="emoji">🥺</div>
+    <h1>Ek chhoti si request...</h1>
+    <p>Bas ek baar yahan click kar do 👉</p>
+    <button class="primary" onclick="next(2)">Click karo 👀</button>
+  </section>
+
+  <section id="s2" class="hidden">
+    <div class="emoji">😭</div>
+    <h1>Achha baba...</h1>
+    <p>Main maan gaya, tum mujhse naraz ho sakti ho...<br>par itna bhi gussa mat ho 🥺</p>
+    <button class="primary" onclick="next(3)">Aage dekho 🙈</button>
+  </section>
+
+  <section id="s3" class="hidden">
+    <div class="emoji">🫶</div>
+    <h1>Ek aur baat...</h1>
+    <p>Agar meri kisi baat se bura laga ho,<br>toh dil se sorry. ❤️</p>
+    <button class="primary" onclick="next(4)">Last question 😭</button>
+  </section>
+
+  <section id="s4" class="hidden">
+    <div class="emoji">😶‍🌫️</div>
+    <h1>Ab sach-sach batao...</h1>
+    <p><b>Kya tum abhi bhi gussa ho?</b></p>
+    <div>
+      <button id="yesBtn" onclick="yesPressed()">YES 😤</button>
+      <button id="noBtn" onclick="noPressed()">NO 🥹</button>
+    </div>
+    <div id="afterYes" class="hidden">
+      <p>Accha 😭 tumne YES daba diya...<br>ab ye button bhi sharma ke chala gaya 🫣</p>
+      <button class="primary" onclick="next(5)">Ab ye dekho ❤️</button>
+    </div>
+  </section>
+
+  <section id="s5" class="hidden">
+    <div class="emoji">🥰</div>
+    <h1>Bas itna hi kehna tha ❤️</h1>
+    <p>Ab gussa thoda sa kam kar do na...<br>warna main phir se manaunga 😭🫶</p>
+    <button class="primary" onclick="next(6)">Smile kar do 😊</button>
+  </section>
+
+  <section id="s6" class="hidden">
+    <div class="emoji">💗</div>
+    <h1>Yayyy! 🥹</h1>
+    <p>Mission: <b>gussa kam karna</b> complete ✨</p>
+  </section>
+
+  <div class="small">made with a little bit of sorry & lots of care 💕</div>
+</div>
+
+<script>
+let current=1;
+function next(n){
+  document.getElementById("s"+current).classList.add("hidden");
+  document.getElementById("s"+n).classList.remove("hidden");
+  current=n;
+  burst();
+}
+function yesPressed(){
+  document.getElementById("yesBtn").classList.add("hidden");
+  document.getElementById("afterYes").classList.remove("hidden");
+  burst();
+}
+function noPressed(){
+  document.getElementById("yesBtn").classList.add("hidden");
+  document.getElementById("noBtn").classList.add("hidden");
+  document.querySelector("#s4 p").innerHTML="<b>Ohooo 🥹❤️</b><br>Gussa nahi ho? Ye hui na baat!";
+  burst();
+}
+function burst(){
+  const box=document.getElementById("hearts");
+  for(let i=0;i<9;i++){
+    const h=document.createElement("span");
+    h.className="heart"; h.textContent=["❤️","💕","💗","✨","🥹"][Math.floor(Math.random()*5)];
+    h.style.left=(5+Math.random()*90)+"%";
+    h.style.bottom="-20px";
+    h.style.animationDelay=(Math.random()*.5)+"s";
+    box.appendChild(h);
+    setTimeout(()=>h.remove(),5500);
+  }
+}
+</script>
+</body>
+</html>
